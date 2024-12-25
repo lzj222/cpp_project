@@ -16,15 +16,10 @@ void ExecutorImpl::DoCommand(const std::string& commands) noexcept
 {
    //表驱动消减圈复杂度
     static std::unordered_map<char, std::function<void(LocationHandler& locationHandler)>> commandMap;
-    //创建各种命令对象
-    MoveCommand moveCommand;
-    TurnLeftCommand turnLeftCommand;
-    TurnRightCommand turnRightCommand;
-    FastCommand fastCommand;
-    commandMap.emplace('M', moveCommand.operate);
-    commandMap.emplace('L', turnLeftCommand.operate);
-    commandMap.emplace('R', turnRightCommand.operate);
-    commandMap.emplace('F', fastCommand.operate);
+    commandMap.emplace('M', MoveCommand());
+    commandMap.emplace('L', TurnLeftCommand());
+    commandMap.emplace('R', TurnRightCommand());
+    commandMap.emplace('F', FastCommand());
     for (const auto command : commands) {
         const auto it = commandMap.find(command);
         if (it != commandMap.end()) {
