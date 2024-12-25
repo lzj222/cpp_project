@@ -1,12 +1,14 @@
 #pragma once
 #include"Executor.hpp"
+#include"Direction.hpp"
 namespace adas
 {
     //解耦循环依赖，封装抽离ExecutorImpl状态数据
 class LocationHandler final
 {
 private:
-    Location location;
+    Position position;
+    const Direction* direction;
     bool isFastMove{false};//C++11新增的成员变量初始化方式,默认初始化为不加速
 public:
 //对象构造与析构相关
