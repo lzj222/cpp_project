@@ -1,58 +1,54 @@
 #pragma once
 #include"ExecutorImpl.hpp"
 #include"LocationHandler.hpp"
+#include<functional>
 namespace adas
 {
-    class ExecuteCommand
-    {
-    public:
-        ExecuteCommand()=default; // 默认构造函数，使用编译器生成的默认实现
-        virtual ~ExecuteCommand()=default;
-        virtual void DoOperate(LocationHandler& locationHandler) const noexcept=0;
 
-    };
-    class MoveCommand final:public ExecuteCommand
+    class MoveCommand final
     {
     public:
-        void DoOperate(LocationHandler& locationHandler) const noexcept override//override,如果基类中没有对应的虚函数，或者签名不匹配，编译器会报错，这有助于避免因拼写错误或签名不一致而导致的难以发现的bug
+    // 定义一个 std::function 类型的可调用对象 operate，接收一个 LocationHandler 的引用，返回类型为 void 
+        const std::function<void(LocationHandler& locationHandler)> operate=[](LocationHandler& locationHandler) noexcept
         {
             if(locationHandler.IsFastMove())
             {
                 locationHandler.Move();
             }//如果处于加速状态，就再走一格
             locationHandler.Move();
-        }
+        };
+
     };
-    class TurnLeftCommand final:public ExecuteCommand
+    class TurnLeftCommand final
     {
     public:
-        void DoOperate(LocationHandler& locationHandler) const noexcept override
+        const std::function<void(LocationHandler& locationHandler)> operate=[](LocationHandler& locationHandler) noexcept
         {
             if(locationHandler.IsFastMove())
             {
                 locationHandler.Move();
             }//如果处于加速状态，就再走一格
             locationHandler.TurnLeft();
-        }
+        };
     };
-    class TurnRightCommand final:public ExecuteCommand
+    class TurnRightCommand final
     {
     public:
-        void DoOperate(LocationHandler& locationHandler) const noexcept override
+        const std::function<void(LocationHandler& locationHandler)> operate=[](LocationHandler& locationHandler) noexcept
         {
             if(locationHandler.IsFastMove())
             {
                 locationHandler.Move();
             }//如果处于加速状态，就再走一格
             locationHandler.TurnRight();
-        }
+        };
     };//建立指令的继承关系，便于实现多态
-    class FastCommand final:public ExecuteCommand
+    class FastCommand final
     {
     public:
-        void DoOperate(LocationHandler& locationHandler) const noexcept override
+        const std::function<void(LocationHandler& locationHandler)> operate=[](LocationHandler& locationHandler) noexcept
         {
             locationHandler.FastChange();
-        }
+        };
     };
 }
