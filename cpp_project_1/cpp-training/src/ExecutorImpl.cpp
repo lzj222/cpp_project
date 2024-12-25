@@ -15,11 +15,13 @@ ExecutorImpl::ExecutorImpl(const Location& location) noexcept : locationHandler(
 void ExecutorImpl::DoCommand(const std::string& commands) noexcept
 {
    //表驱动消减圈复杂度
-    static std::unordered_map<char, std::function<void(LocationHandler& locationHandler)>> commandMap;
-    commandMap.emplace('M', MoveCommand());
-    commandMap.emplace('L', TurnLeftCommand());
-    commandMap.emplace('R', TurnRightCommand());
-    commandMap.emplace('F', FastCommand());
+   //初始化语义应用
+    const std::unordered_map<char, std::function<void(LocationHandler& locationHandler)>> commandMap{
+        {'M', MoveCommand()},
+        {'L', TurnLeftCommand()},
+        {'R', TurnRightCommand()},
+        {'F', FastCommand()}
+    };
     for (const auto command : commands) {
         const auto it = commandMap.find(command);
         if (it != commandMap.end()) {
