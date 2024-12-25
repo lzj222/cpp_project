@@ -21,6 +21,12 @@ namespace adas
         y+=position.y;
         return *this;
     }
+    Position& Position:: operator-=(const Position& position) noexcept
+    {
+        x-=position.x;
+        y-=position.y;
+        return *this;
+    }
     int Position::GetX(void) const noexcept
     {
         return x;

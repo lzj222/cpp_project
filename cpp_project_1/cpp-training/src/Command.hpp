@@ -12,9 +12,23 @@ namespace adas
         {
             if(locationHandler.IsFastMove())
             {
-                locationHandler.Move();
+                if(locationHandler.IsReverse())
+                {
+                    locationHandler.BackMove();
+                }
+                else
+                {
+                    locationHandler.Move();
+                }
             }//如果处于加速状态，就再走一格
-            locationHandler.Move();
+            if(locationHandler.IsReverse())
+            {
+                locationHandler.BackMove();
+            }
+            else
+            {
+                locationHandler.Move();
+            }
         };
     };
     class TurnLeftCommand final
@@ -24,9 +38,24 @@ namespace adas
         {
             if(locationHandler.IsFastMove())
             {
-                locationHandler.Move();
+                if(locationHandler.IsReverse())
+                {
+                    locationHandler.BackMove();
+                }
+                else
+                {
+                    locationHandler.Move();
+                }
+                
             }//如果处于加速状态，就再走一格
-            locationHandler.TurnLeft();
+            if(locationHandler.IsReverse())
+            {
+                locationHandler.TurnRight();
+            }
+            else
+            {
+                locationHandler.TurnLeft();
+            }
         };
     };
     class TurnRightCommand final
@@ -36,9 +65,23 @@ namespace adas
         {
             if(locationHandler.IsFastMove())
             {
-                locationHandler.Move();
+                if(locationHandler.IsReverse())
+                {
+                    locationHandler.BackMove();
+                }
+                else
+                {
+                    locationHandler.Move();
+                }
             }//如果处于加速状态，就再走一格
-            locationHandler.TurnRight();
+            if(locationHandler.IsReverse())
+            {
+                locationHandler.TurnLeft();
+            }
+            else
+            {
+                locationHandler.TurnRight();
+            }
         };
     };
     class FastCommand final
@@ -47,6 +90,14 @@ namespace adas
         void operator()(LocationHandler& locationHandler) const noexcept
         {
             locationHandler.FastChange();
+        };
+    };
+    class ReverseCommand final
+    {
+    public:
+        void operator()(LocationHandler& locationHandler) const noexcept
+        {
+            locationHandler.Reverse();
         };
     };
 }

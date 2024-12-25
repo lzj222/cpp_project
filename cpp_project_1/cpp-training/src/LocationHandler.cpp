@@ -10,6 +10,10 @@ void LocationHandler::Move(void)noexcept
 {
    position += direction->Move();
 }
+void LocationHandler::BackMove(void)noexcept
+{
+    position -= direction->Move();
+}
 void LocationHandler::TurnLeft(void)noexcept
 {
     direction = &(direction->DirectionLeft());
@@ -30,5 +34,13 @@ void LocationHandler::FastChange(void)noexcept
 bool LocationHandler::IsFastMove(void)const noexcept
 {
     return isFastMove;
+}
+void LocationHandler::Reverse(void)noexcept//改变倒车状态
+{
+    isReverse=!isReverse;
+}
+bool LocationHandler::IsReverse(void)const noexcept//判断是否处在倒车状态
+{
+    return isReverse;
 }
 }

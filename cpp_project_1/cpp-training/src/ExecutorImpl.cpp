@@ -20,7 +20,8 @@ void ExecutorImpl::DoCommand(const std::string& commands) noexcept
         {'M', MoveCommand()},
         {'L', TurnLeftCommand()},
         {'R', TurnRightCommand()},
-        {'F', FastCommand()}
+        {'F', FastCommand()},
+        {'B', ReverseCommand()}
     };
     for (const auto command : commands) {
         const auto it = commandMap.find(command);

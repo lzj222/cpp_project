@@ -8,13 +8,6 @@ class ExecutorImpl final : public Executor  // ExecutorImpl不能再作为基类
 {
 private:
     LocationHandler locationHandler;
-public:
-    void Move(void)noexcept;
-    void TurnLeft(void)noexcept;
-    void TurnRight(void)noexcept;
-    void FastChange(void)noexcept;//改变加速状态
-    bool IsFastMove(void)const noexcept;//判断是否处在加速状态
-    
 
 public:
     // 构造函数和析构函数
