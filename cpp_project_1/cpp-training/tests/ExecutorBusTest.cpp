@@ -6,7 +6,7 @@ namespace adas
 {
 //正常状态测试
 //M测试
-TEST(ExecutorBusTest,should_return_x_mius_1_given_status_is_nomal_command_is_M_and_facing_is_W)
+TEST(ExecutorBusTest,should_return_x_minus_1_given_status_is_nomal_command_is_M_and_facing_is_W)
 {
     std::unique_ptr<Executor> executor(Executor::CreateExecutor({0, 0, 'W'},VehicleType::Bus));
     executor->DoCommand("M");
