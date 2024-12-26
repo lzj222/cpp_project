@@ -1,9 +1,10 @@
 #include"LocationHandler.hpp"
 namespace adas
 {
-LocationHandler::LocationHandler(const Location& location) noexcept 
+LocationHandler::LocationHandler(const Location& location,VehicleType type) noexcept 
     : position(location.x, location.y), 
-    direction(&Direction::GetDirection(location.heading))
+    direction(&Direction::GetDirection(location.heading)),
+    vehicleType(type)
 {
 }
 void LocationHandler::Move(void)noexcept
@@ -42,5 +43,9 @@ void LocationHandler::Reverse(void)noexcept//改变倒车状态
 bool LocationHandler::IsReverse(void)const noexcept//判断是否处在倒车状态
 {
     return isReverse;
+}
+VehicleType LocationHandler::GetVehicleType(void)const noexcept
+{
+    return vehicleType;
 }
 }

@@ -10,8 +10,68 @@ namespace adas
     public:
         void operator()(LocationHandler& locationHandler) const noexcept
         {
-            if(locationHandler.IsFastMove())
+            if(locationHandler.GetVehicleType()==VehicleType::SportsCar)
             {
+                if(!locationHandler.IsReverse()&&!locationHandler.IsFastMove())
+                {
+                    locationHandler.Move();
+                    locationHandler.Move();
+                }
+                else if(locationHandler.IsReverse()&&!locationHandler.IsFastMove())
+                {
+                    locationHandler.BackMove();
+                    locationHandler.BackMove();
+                }
+                else if(!locationHandler.IsReverse()&&locationHandler.IsFastMove())
+                {
+                    locationHandler.Move();
+                    locationHandler.Move();
+                    locationHandler.Move();
+                    locationHandler.Move();
+                }
+                else if(locationHandler.IsReverse()&&locationHandler.IsFastMove())
+                {
+                    locationHandler.BackMove();
+                    locationHandler.BackMove();
+                    locationHandler.BackMove();
+                    locationHandler.BackMove();
+                }
+            }
+            else if(locationHandler.GetVehicleType()==VehicleType::Bus)
+            {
+                if(!locationHandler.IsReverse()&&!locationHandler.IsFastMove())
+                {
+                    locationHandler.Move();
+                }
+                else if(locationHandler.IsReverse()&&!locationHandler.IsFastMove())
+                {
+                    locationHandler.BackMove();
+                }
+                else if(!locationHandler.IsReverse()&&locationHandler.IsFastMove())
+                {
+                    locationHandler.Move();
+                    locationHandler.Move();
+                }
+                else if(locationHandler.IsReverse()&&locationHandler.IsFastMove())
+                {
+                    locationHandler.BackMove();
+                    locationHandler.BackMove();
+                }
+            }
+            //正常车辆
+            else
+            {
+                if(locationHandler.IsFastMove())
+                {
+                    if(locationHandler.IsReverse())
+                    {
+                        locationHandler.BackMove();
+                    }
+                    else
+                    {
+                        locationHandler.Move();
+                    }
+                }//如果处于加速状态，就再走一格
                 if(locationHandler.IsReverse())
                 {
                     locationHandler.BackMove();
@@ -20,14 +80,6 @@ namespace adas
                 {
                     locationHandler.Move();
                 }
-            }//如果处于加速状态，就再走一格
-            if(locationHandler.IsReverse())
-            {
-                locationHandler.BackMove();
-            }
-            else
-            {
-                locationHandler.Move();
             }
         };
     };
@@ -36,25 +88,79 @@ namespace adas
     public:
         void operator()(LocationHandler& locationHandler) const noexcept
         {
-            if(locationHandler.IsFastMove())
+            if(locationHandler.GetVehicleType()==VehicleType::SportsCar)
             {
-                if(locationHandler.IsReverse())
+                if(!locationHandler.IsReverse()&&!locationHandler.IsFastMove())
+                {
+                    locationHandler.TurnLeft();
+                    locationHandler.Move();
+                }
+                else if(locationHandler.IsReverse()&&!locationHandler.IsFastMove())
+                {
+                    locationHandler.TurnRight();
+                    locationHandler.BackMove();
+                }
+                else if(!locationHandler.IsReverse()&&locationHandler.IsFastMove())
+                {
+                    locationHandler.Move();
+                    locationHandler.TurnLeft();
+                    locationHandler.Move();
+                }
+                else if(locationHandler.IsReverse()&&locationHandler.IsFastMove())
                 {
                     locationHandler.BackMove();
+                    locationHandler.TurnRight();
+                    locationHandler.BackMove();
+                }
+            }
+            else if(locationHandler.GetVehicleType()==VehicleType::Bus)
+            {
+                if(!locationHandler.IsReverse()&&!locationHandler.IsFastMove())
+                {
+                    locationHandler.Move();
+                    locationHandler.TurnLeft();
+                }
+                else if(locationHandler.IsReverse()&&!locationHandler.IsFastMove())
+                {
+                    locationHandler.BackMove();
+                    locationHandler.TurnRight();
+                }
+                else if(!locationHandler.IsReverse()&&locationHandler.IsFastMove())
+                {
+                    locationHandler.Move();
+                    locationHandler.Move();
+                    locationHandler.TurnLeft();
+                }
+                else if(locationHandler.IsReverse()&&locationHandler.IsFastMove())
+                {
+                    locationHandler.BackMove();
+                    locationHandler.BackMove();
+                    locationHandler.TurnRight();
+                }
+            }
+            //正常车辆
+            else
+            {
+                if(locationHandler.IsFastMove())
+                {
+                    if(locationHandler.IsReverse())
+                    {
+                        locationHandler.BackMove();
+                    }
+                    else
+                    {
+                        locationHandler.Move();
+                    }
+                    
+                }//如果处于加速状态，就再走一格
+                if(locationHandler.IsReverse())
+                {
+                    locationHandler.TurnRight();
                 }
                 else
                 {
-                    locationHandler.Move();
+                    locationHandler.TurnLeft();
                 }
-                
-            }//如果处于加速状态，就再走一格
-            if(locationHandler.IsReverse())
-            {
-                locationHandler.TurnRight();
-            }
-            else
-            {
-                locationHandler.TurnLeft();
             }
         };
     };
@@ -63,24 +169,77 @@ namespace adas
     public:
         void operator()(LocationHandler& locationHandler) const noexcept
         {
-            if(locationHandler.IsFastMove())
+            if(locationHandler.GetVehicleType()==VehicleType::SportsCar)
             {
-                if(locationHandler.IsReverse())
+                if(!locationHandler.IsReverse()&&!locationHandler.IsFastMove())
                 {
-                    locationHandler.BackMove();
-                }
-                else
-                {
+                    locationHandler.TurnRight();
                     locationHandler.Move();
                 }
-            }//如果处于加速状态，就再走一格
-            if(locationHandler.IsReverse())
+                else if(locationHandler.IsReverse()&&!locationHandler.IsFastMove())
+                {
+                    locationHandler.TurnLeft();
+                    locationHandler.BackMove();
+                }
+                else if(!locationHandler.IsReverse()&&locationHandler.IsFastMove())
+                {
+                    locationHandler.Move();
+                    locationHandler.TurnRight();
+                    locationHandler.Move();
+                }
+                else if(locationHandler.IsReverse()&&locationHandler.IsFastMove())
+                {
+                    locationHandler.BackMove();
+                    locationHandler.TurnLeft();
+                    locationHandler.BackMove();
+                }
+            }
+            else if(locationHandler.GetVehicleType()==VehicleType::Bus)
             {
-                locationHandler.TurnLeft();
+                if(!locationHandler.IsReverse()&&!locationHandler.IsFastMove())
+                {
+                    locationHandler.Move();
+                    locationHandler.TurnRight();
+                }
+                else if(locationHandler.IsReverse()&&!locationHandler.IsFastMove())
+                {
+                    locationHandler.BackMove();
+                    locationHandler.TurnLeft();
+                }
+                else if(!locationHandler.IsReverse()&&locationHandler.IsFastMove())
+                {
+                    locationHandler.Move();
+                    locationHandler.Move();
+                    locationHandler.TurnRight();
+                }
+                else if(locationHandler.IsReverse()&&locationHandler.IsFastMove())
+                {
+                    locationHandler.BackMove();
+                    locationHandler.BackMove();
+                    locationHandler.TurnLeft();
+                }
             }
             else
             {
-                locationHandler.TurnRight();
+                if(locationHandler.IsFastMove())
+                {
+                    if(locationHandler.IsReverse())
+                    {
+                        locationHandler.BackMove();
+                    }
+                    else
+                    {
+                        locationHandler.Move();
+                    }
+                }//如果处于加速状态，就再走一格
+                if(locationHandler.IsReverse())
+                {
+                    locationHandler.TurnLeft();
+                }
+                else
+                {
+                    locationHandler.TurnRight();
+                }
             }
         };
     };
@@ -100,4 +259,6 @@ namespace adas
             locationHandler.Reverse();
         };
     };
+    
+   
 }
